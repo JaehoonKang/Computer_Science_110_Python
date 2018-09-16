@@ -8,7 +8,7 @@ Assignment 3-1
 '''
 
 '''
-Anyalsis
+ANALYSIS
 
 RESTATE the problem
 
@@ -24,7 +24,7 @@ INPUT from keyboard
 
   Input value: "sin", "cos", or "log"
   
-GIVENS
+GIVENS:
 
   Sine Graph, Cos Graph, Log(base 2):
   
@@ -135,8 +135,14 @@ def main():
     y_axis.goto(0,1)
     
     y_axis.goto(0,-1)
+
+    # Move turtle (fred) to a starting point (0,1)
+    
+    fred.up()
     
     fred.goto(0,1)
+
+    fred.down()
 
     # Set a value range from 0 to 360 since it is a cos curve
     
