@@ -29,6 +29,12 @@ GIVENS:
   Sine Graph, Cos Graph, Log(base 2):
   
   math.sin(), math.cos(), math.radians, math.log2()
+
+  MAX_RANGE = 360
+
+  STARTING_POINT_MAX = 1
+
+  STARTING_POINT_MIN = 0
     
 PROCESSING:
 
@@ -66,6 +72,14 @@ PROCESSING:
 import math
 import turtle
 
+# CONSTATNS
+
+MAX_RANGE = 360
+
+STARTING_POINT_MAX = 1
+
+STARTING_POINT_MIN = 0
+
 # DESIGN
 
 def main():
@@ -74,7 +88,7 @@ def main():
   
   wn.bgcolor('lightblue')
 
-  wn.setworldcoordinates(0, -1, 360, 1)
+  wn.setworldcoordinates(0, -1, MAX_RANGE, 1)
 
   # Create turtle
   
@@ -102,7 +116,7 @@ def main():
 
   # Draw x-axis
   
-  x_axis.goto(360,0)
+  x_axis.goto(MAX_RANGE,STARTING_POINT_MIN)
 
   # When a user chooses a SINE curve
   
@@ -110,13 +124,13 @@ def main():
 
     # Draw y-axis to set a different screen size for y-axis
     
-    y_axis.goto(0,1)
+    y_axis.goto(STARTING_POINT_MIN,STARTING_POINT_MAX)
     
-    y_axis.goto(0,-1)
+    y_axis.goto(STARTING_POINT_MIN,-1)
 
     # Set a value range from 0 to 360 since it is a sin curve
 
-    for x in range(360):
+    for x in range(MAX_RANGE):
 
       # Using math.sin function in python, convert number in a range to sine
       
@@ -132,21 +146,21 @@ def main():
 
     # Draw y-axis to set a different screen size for y-axis
     
-    y_axis.goto(0,1)
+    y_axis.goto(0,STARTING_POINT_MAX)
     
-    y_axis.goto(0,-1)
+    y_axis.goto(STARTING_POINT_MIN,-1)
 
     # Move turtle (fred) to a starting point (0,1)
     
     fred.up()
     
-    fred.goto(0,1)
+    fred.goto(STARTING_POINT_MIN,STARTING_POINT_MAX)
 
     fred.down()
 
     # Set a value range from 0 to 360 since it is a cos curve
     
-    for y in range(360):
+    for y in range(MAX_RANGE):
 
       # Using math.cos function, convert number in a range to cosine
       
@@ -162,15 +176,15 @@ def main():
 
     # Set a different screen size for viewing
 
-    wn.setworldcoordinates(0, -100, 360, 140)
+    wn.setworldcoordinates(0, -100, MAX_RANGE, 140)
 
-    y_axis.goto(0,100)
+    y_axis.goto(STARTING_POINT_MIN,100)
     
-    y_axis.goto(0,-100)
+    y_axis.goto(STARTING_POINT_MIN,-100)
 
     # Set a value range from 1 to 360 since it is a log curve
     
-    for z in range(1,360):
+    for z in range(1,MAX_RANGE):
 
       # Using math.log2 function in python, convert number in a range to log
       

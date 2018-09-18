@@ -71,6 +71,10 @@ HUNDRED = 100
 
 FOUR_HUNDRED = 400
 
+STARTING_YEAR = 1800
+
+ENDING_YEAR = 2101
+
 # Explain purpose of program to user
 # This program to check if a input year is a leap year or not
 
@@ -102,7 +106,7 @@ def main():
 
 # Using for-loop in range from 1800 to 2100, increased by 10
 
-    for num_year in range (1800, 2101, 10):
+    for num_year in range (STARTING_YEAR, ENDING_YEAR, 10):
         
          if (num_year % FOUR == ZERO) and  ( num_year % HUNDRED != 0 ) or\
             ( num_year % FOUR_HUNDRED == ZERO):
