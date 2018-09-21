@@ -113,6 +113,8 @@ def main():
      
       # Use nested and chained conditionals to compute tax
       ### YOUR CODE HERE ###
+
+      # To compute data for Single when i equals 0
       if i == 0:    
       
         if (income >= SINGLE_BRACKET0) and (income < SINGLE_BRACKET1):
@@ -160,6 +162,7 @@ def main():
           else:
             tax = BASE_SINGLE6 + (income - SINGLE_BRACKET6) * TAX_RATE7
             
+      # To compute data for Married when i equals 1      
       else:
         
         if (income >= MARRIED_BRACKET0) and (income < MARRIED_BRACKET1):
@@ -207,6 +210,7 @@ def main():
           else:
             tax = BASE_MARRIED6 + (income - MARRIED_BRACKET6) * TAX_RATE7
       
-      print("Tax for %7s filer, with income $%9.2f = $%9.2f" %(status, income, tax))
+      print("Tax for %7s filer, with income $%9.2f = $%9.2f"
+            %(status, income, tax))
             
 main()
