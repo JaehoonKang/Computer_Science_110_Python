@@ -117,98 +117,50 @@ def main():
       # To compute data for Single when i equals 0
       if i == 0:    
       
-        if (income >= SINGLE_BRACKET0) and (income < SINGLE_BRACKET1):
+        if (income < SINGLE_BRACKET1):
           tax = BASE_SINGLE0
           
-        elif (income >= SINGLE_BRACKET1) and (income < SINGLE_BRACKET2):
-          
-          if income == SINGLE_BRACKET1:
-            tax = BASE_SINGLE1
-          else:
-            tax = BASE_SINGLE1 + (income - SINGLE_BRACKET1) * TAX_RATE2
+        elif (income < SINGLE_BRACKET2):
+          tax = BASE_SINGLE1 + (income - SINGLE_BRACKET1) * TAX_RATE2
             
-        elif (income >= SINGLE_BRACKET2) and (income < SINGLE_BRACKET3):
-          
-          if income == SINGLE_BRACKET2:
-            tax = BASE_SINGLE2
-          else:
-            tax = BASE_SINGLE2 + (income - SINGLE_BRACKET2) * TAX_RATE3
+        elif (income < SINGLE_BRACKET3):
+          tax = BASE_SINGLE2 + (income - SINGLE_BRACKET2) * TAX_RATE3
             
-        elif (income >= SINGLE_BRACKET3) and (income < SINGLE_BRACKET4):
-          
-          if income == SINGLE_BRACKET3:
-            tax = BASE_SINGLE3
-          else:
-            tax = BASE_SINGLE3 + (income - SINGLE_BRACKET3) * TAX_RATE4
+        elif (income < SINGLE_BRACKET4):
+          tax = BASE_SINGLE3 + (income - SINGLE_BRACKET3) * TAX_RATE4
             
-        elif (income >= SINGLE_BRACKET4) and (income < SINGLE_BRACKET5):
-          
-          if income == SINGLE_BRACKET4:
-            tax = BASE_SINGLE4
-          else:
-            tax = BASE_SINGLE4 + (income - SINGLE_BRACKET4) * TAX_RATE5
+        elif (income < SINGLE_BRACKET5):
+          tax = BASE_SINGLE4 + (income - SINGLE_BRACKET4) * TAX_RATE5
 
-        elif (income >= SINGLE_BRACKET5) and (income < SINGLE_BRACKET6):
-          
-          if income == SINGLE_BRACKET5:
-            tax = BASE_SINGLE5
-          else:
-            tax = BASE_SINGLE5 + (income - SINGLE_BRACKET5) * TAX_RATE6
+        elif (income < SINGLE_BRACKET6):
+          tax = BASE_SINGLE5 + (income - SINGLE_BRACKET5) * TAX_RATE6
 
         else:
-          
-          if income == SINGLE_BRACKET6:
-            tax = BASE_SINGLE6
-          else:
-            tax = BASE_SINGLE6 + (income - SINGLE_BRACKET6) * TAX_RATE7
+          tax = BASE_SINGLE6 + (income - SINGLE_BRACKET6) * TAX_RATE7
             
       # To compute data for Married when i equals 1      
       else:
         
-        if (income >= MARRIED_BRACKET0) and (income < MARRIED_BRACKET1):
+        if (income < MARRIED_BRACKET1):
           tax = BASE_MARRIED0
           
-        elif (income >= MARRIED_BRACKET1) and (income < MARRIED_BRACKET2):
-          
-          if income == MARRIED_BRACKET1:
-            tax = BASE_MARRIED1
-          else:
-            tax = BASE_MARRIED1 + (income - MARRIED_BRACKET1) * TAX_RATE2
+        elif (income < MARRIED_BRACKET2):
+          tax = BASE_MARRIED1 + (income - MARRIED_BRACKET1) * TAX_RATE2
             
-        elif (income >= MARRIED_BRACKET2) and (income < MARRIED_BRACKET3):
-          
-          if income == MARRIED_BRACKET2:
-            tax = BASE_MARRIED2
-          else:
-            tax = BASE_MARRIED2 + (income - MARRIED_BRACKET2) * TAX_RATE3
+        elif (income < MARRIED_BRACKET3):
+          tax = BASE_MARRIED2 + (income - MARRIED_BRACKET2) * TAX_RATE3
             
-        elif (income >= MARRIED_BRACKET3) and (income < MARRIED_BRACKET4):
-          
-          if income == MARRIED_BRACKET3:
-            tax = BASE_MARRIED3
-          else:
-            tax = BASE_MARRIED3 + (income - MARRIED_BRACKET3) * TAX_RATE4
+        elif (income < MARRIED_BRACKET4):
+          tax = BASE_MARRIED3 + (income - MARRIED_BRACKET3) * TAX_RATE4
             
-        elif (income >= MARRIED_BRACKET4) and (income < MARRIED_BRACKET5):
-          
-          if income == MARRIED_BRACKET4:
-            tax = BASE_MARRIED4
-          else:
-            tax = BASE_MARRIED4 + (income - MARRIED_BRACKET4) * TAX_RATE5
+        elif (income < MARRIED_BRACKET5):
+          tax = BASE_MARRIED4 + (income - MARRIED_BRACKET4) * TAX_RATE5
 
-        elif (income >= MARRIED_BRACKET5) and (income < MARRIED_BRACKET6):
-          
-          if income == MARRIED_BRACKET5:
-            tax = BASE_MARRIED5
-          else:
-            tax = BASE_MARRIED5 + (income - MARRIED_BRACKET5) * TAX_RATE6
+        elif (income < MARRIED_BRACKET6):
+          tax = BASE_MARRIED5 + (income - MARRIED_BRACKET5) * TAX_RATE6
 
         else:
-          
-          if income == MARRIED_BRACKET6:
-            tax = BASE_MARRIED6
-          else:
-            tax = BASE_MARRIED6 + (income - MARRIED_BRACKET6) * TAX_RATE7
+          tax = BASE_MARRIED6 + (income - MARRIED_BRACKET6) * TAX_RATE7
       
       print("Tax for %7s filer, with income $%9.2f = $%9.2f"
             %(status, income, tax))
