@@ -26,11 +26,9 @@ def tupleListToDict(argList):
         if i[0] == argList[count][0]:
             a = i[1] + argList[count][1]
             new_dict[i[0]] = a
-            #print(a)
-        else:
-            new_dict[i[0]]= i[1]
+            ##print(new_dict)
             
-    print(new_dict)
+    return new_dict
         
         
 tupleListToDict(grade_list)
