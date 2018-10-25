@@ -17,6 +17,9 @@ thisdict =	{
   'apple': 12
 }
 
+thislist=[2,3,4,5]
+a = []
+
 ##print(grade_list)
 
 def tupleListToDict(argList):
@@ -43,12 +46,24 @@ def getSortedKeyList(argDict):
         new_list.append(init)
 
     new_list.sort()
-    print(new_list)
+    ##print(new_list)
     return new_list
 
-def computeAverge(newList):
+def computeAverage(newList):
+    accum = 0
+    avg = 0
+    for init in newList:
+        if newList != []:    
+            accum += init
+            avg = accum / len(newList)
+        else:
+            avg = 0
     
+    print(avg)
+    return avg
         
         
 ##tupleListToDict(grade_list)
-getSortedKeyList(thisdict)
+##getSortedKeyList(thisdict)
+##computeAverage(thislist)
+##computeAverage(a)
