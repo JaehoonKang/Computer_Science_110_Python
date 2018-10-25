@@ -10,6 +10,12 @@ grade_list = [ ('Zaphod', [33, 20]), ('Zaphod', [75, 48]), ('Slartibartfast',[])
 
       ('Ford',[50]), ('Ford', [50]), ('Ford', [50]) ]
 
+thisdict =	{
+  "brand": "Ford",
+  "model": "Mustang",
+  "year": 1964,
+  'apple': 12
+}
 
 ##print(grade_list)
 
@@ -29,6 +35,20 @@ def tupleListToDict(argList):
             ##print(new_dict)
             
     return new_dict
+
+def getSortedKeyList(argDict):
+    
+    new_list = []
+    for init in argDict:
+        new_list.append(init)
+
+    new_list.sort()
+    print(new_list)
+    return new_list
+
+def computeAverge(newList):
+    
         
         
-tupleListToDict(grade_list)
+##tupleListToDict(grade_list)
+getSortedKeyList(thisdict)
