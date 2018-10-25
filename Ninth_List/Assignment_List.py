@@ -11,14 +11,15 @@ grade_list = [ ('Zaphod', [33, 20]), ('Zaphod', [75, 48]), ('Slartibartfast',[])
       ('Ford',[50]), ('Ford', [50]), ('Ford', [50]) ]
 
 thisdict =	{
-  "brand": "Ford",
-  "model": "Mustang",
-  "year": 1964,
-  'apple': 12
+  "brand": [1,2,3],
+  "model": [3,4,5],
+  "year": [1,9,6,4],
+  'apple': [1,2]
 }
 
 thislist=[2,3,4,5]
-a = []
+
+empty_list = []
 
 ##print(grade_list)
 
@@ -59,11 +60,25 @@ def computeAverage(newList):
         else:
             avg = 0
     
-    print(avg)
+    ##print(avg)
     return avg
-        
+
+def getSortedListOfTuples(newDict):
+    ##new_list = []
+    result = newDict.items()
+    #value = 0
+    #key = ''
+    
+    for i in result:
+        #value = computeAverage(i[1])
+        #key = i[0]
+    
+        print('%s and %d' %(i[0],computeAverage(i[1])))
+    #return value, key
+    
         
 ##tupleListToDict(grade_list)
 ##getSortedKeyList(thisdict)
 ##computeAverage(thislist)
-##computeAverage(a)
+##computeAverage(empty_list)
+getSortedListOfTuples(thisdict)
