@@ -15,9 +15,22 @@ grade_list = [ ('Zaphod', [33, 20]), ('Zaphod', [75, 48]), ('Slartibartfast',[])
 
 def tupleListToDict(argList):
     new_dict = {}
+    count = 0
+    #new_list_key = []
+    #new_list_value = []
+    new_list = []
+    a = []
     
     for i in argList:
-        new_dict[argList[i][0]] = argList[i][1]
-    return new_dict
-
+        count = argList.index(i) + 1
+        if i[0] == argList[count][0]:
+            a = i[1] + argList[count][1]
+            new_dict[i[0]] = a
+            #print(a)
+        else:
+            new_dict[i[0]]= i[1]
+            
+    print(new_dict)
+        
+        
 tupleListToDict(grade_list)
