@@ -28,56 +28,41 @@ FORMULAS:
 
 def tupleListToDict(argList):
     new_dict = {}
-    count = 0
     
-    new_list = []
-    contain_list = []
-    
-    for i in argList:
-        count = argList.index(i) + 1
-        if i[0] == argList[count][0]:
-            contain_list = i[1] + argList[count][1]
-            new_dict[i[0]] = contain_list
-    print(new_dict)
+    for pair in argList:
+        
+        if pair[0] in new_dict:
+            new_dict[pair[0]] += pair[1]
+        else:
+            new_dict[pair[0]] = pair[1]
+    #print(new_dict)
             
     return new_dict
 
 def getSortedKeyList(argDict):
     
-    new_list = []
-    for init in argDict:
-        new_list.append(init)
+    new_list = list(argDict.keys())
 
     new_list.sort()
-    print(new_list)
+    #print(new_list)
     return new_list
 
 def computeAverage(newList):
     accum = 0
     avg = 0
-    for init in newList:
-        if newList != []:    
+    if newList != []:
+        for init in newList:
             accum += init
-            avg = accum / len(newList)
-        else:
-            avg = 0
-    
-    print(avg)
+        avg = accum / len(newList)
+
     return avg
 
 
 def getSortedListOfTuples(newDict):
     ##new_list = []
     result = newDict.items()
-    value = 0
-    key = ''
-    
-    for i in result:
-        value = computeAverage(i[1])
-        key = i[0]
-    
-        ##print('%s and %d' %(i[0],computeAverage(i[1])))
-    return value, key
+    return sorted(result)
+   
 
 
 def main():
@@ -101,16 +86,87 @@ def main():
     ##empty_list = []
         
     firstDict=tupleListToDict(grade_list)
+    
+    #firstDict_a = getSortedKeyList(firstDict)
+    
+    #print(firstDict_a)
+    
+    #print( key     len(firstDict[key]) computeAverage(firstDict[key])
+    
+    print ("%20s %5s %10s" %("", "  grade ", ""))
+    print ("%20s %5s %10s" %("Name", "  Count ", " Average"))
+    print ("-" * 50)
 
-    avg_list = []
-    for init in firstDict:
-        compute_avg = computeAverage(firstDict[init])
-        avg_list.append(compute_avg)
-    print(avg_list)
+    for init in sorted(firstDict.keys()):
+        print("%20s  %5d  %10.2f"%(init, len(firstDict[init]), computeAverage(firstDict[init])) )
+
+    print()
+    print ("-" * 50)
+    print()
+    
+    secondDict = getSortedListOfTuples(firstDict)
+    
+    print ("%20s %5s %10s" %("", "  grade ", ""))
+    print ("%20s %5s %10s" %("Name", "  Count ", " Average"))
+    print ("-" * 50)
+
+    for init in secondDict:
+        a = init[0]
+        b = init[1]
+        c = computeAverage(init[1])
+        print("%20s  %5d  %10.2f"%(a, len(b), c))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
-    ##keyList= getSortedKeyList(firstDict)
+    #count = 0
+
+    #for init in firstDict:
+        #print(firstDict[init])
+        
+    #avg_list = []
+    #for init in firstDict:
+        #compute_avg = computeAverage(firstDict[init])
+        #avg_list.append(compute_avg)
+    ##print(avg_list)
+        
+    #keyList= getSortedKeyList(firstDict)
     ##computeAverage(secondDict)
     ##computeAverage(empty_list)
     ##getSortedListOfTuples(thisdict)
+
+    #for index in range(len(grade_list))
+    #    len(grade_list[index][1])
+        
+    #secondList=getSortedListOfTuples(firstDict)
+
+
+
+
+    #values = []
+    #key = ''
+    
+    #for init in secondList:
+        #values=computeAverage(init[1])
+        #key = init[0]
+
+    
+        ##print('%s and %d' %(i[0],computeAverage(i[1])))
+    #return value, key
     
 main()
