@@ -123,6 +123,18 @@ def main():
       ('Marvin', [550]), ('Agrajag', []), ('Agrajag', []), ('Agrajag', [0]),
 
       ('Ford',[50]), ('Ford', [50]), ('Ford', [50]) ]
+
+    fruit_list = [ ('Apple', [33, 20, 45]), ('Apple', [75, 48, 69]),
+
+      ('Kiwi',[]), ('Banana', [98, 88]), ('Banana', [97, 77]),
+
+      ('Kiwi', []), ('Pineapple', [2000, 500]) , ('Pineapple', [42, 20]),
+
+      ('Pineapple', [64]), ('Watermelon', [99]), ('Watermelon', [450]),
+
+      ('Peanut', [550]), ('Peanut', []), ('Peanut', [12, 32]), ('Peanut', [0]),
+
+      ('Strawberry',[50]), ('Strawberry', [50]), ('Strawberry', [50]) ]
     
     ##Debugging samples
     
@@ -153,6 +165,52 @@ def main():
 
     # For the second part, using a tuple
     secondList = getSortedListOfTuples(firstDict)
+
+    # Using format specifiers, create a table for the second part
+    print ("%20s %5s %10s" %("", "  grade ", ""))
+    print ("%20s %5s %10s" %("Name", "  Count ", " Average"))
+    print ("-" * 50)
+
+    # For loop to iterate through the list
+    for init in secondList:
+
+        # Save each assigned values to relevant variable names
+        name = init[0]
+        count = init[1]
+        average = computeAverage(init[1])
+
+        # Print out the outcome using formate specifiers
+        print("%20s  %5d  %10.2f"%(name, len(count), average))
+
+    print()
+    print()
+    print()
+    print("Second Test Run with Fruits")
+    print("-" * 60)
+    print()
+    print()
+
+
+    # The outcome after tupleListToDict()    
+    secondDict=tupleListToDict(fruit_list)
+
+    #Using format specifiers, create a table
+    
+    print ("%20s %5s %10s" %("", "  grade ", ""))
+    print ("%20s %5s %10s" %("Name", "  Count ", " Average"))
+    print ("-" * 50)
+
+    # Using sorted(), sorting dictionary using getSortedKeyList()
+    for init in getSortedKeyList(secondDict):
+        print("%20s  %5d  %10.2f"\
+              %(init, len(secondDict[init]), computeAverage(secondDict[init])))
+
+    print()
+    print ("-" * 50)
+    print()
+
+    # For the second part, using a tuple
+    secondList = getSortedListOfTuples(secondDict)
 
     # Using format specifiers, create a table for the second part
     print ("%20s %5s %10s" %("", "  grade ", ""))
