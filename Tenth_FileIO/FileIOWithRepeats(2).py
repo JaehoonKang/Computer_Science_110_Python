@@ -1,37 +1,11 @@
-"""
-Analysis
-Write a program that repeatedly encrypts or decrypts a message given the
-operation to perform and either the rotation key (when encrypting) or the
-rotation key that was used to encrypt (in the case of decrypting)
+# Required file extension
+FILE_EXT = ".txt"
 
-Ceasar cipher program to allow a user to repeatedly specify an entire file of plain text
-or encrypted text to process
+# Constant
+READ_MODE = 'r'
+WRITE_MODE = 'w'
 
-
-Output to monitor:
-  new_message (str)
-
-Input from keyboard:
-  ## message (str)
-  the requested operation: operation (str) - 'E', 'e', 'D', or 'd'
-  rotation_key(int)
-  input the file name (instead of a line of text)
-  
-Tasks allocated to functions:
-  validate_operation() - simple Predicate function
-  validate_rotation_key() - simple Predicate function
-  convert_rotation_key()
-  keep_in_bounds()
-  process_message()
-"""    
-# Design
-# for file validation
-import os.path
-# A particular program performs encryption and decryption of text strings
-# text is encrypted using a Caeser Cipher
-
-# Initialize constants ---------------------------------------------------------
-
+#Initialize constants 
 OPERATIONS = {'e':(1,"Encrypted"), 'd':(-1,"Decrypted")}
 
 # Min and limit ordinals of printable ASCII
@@ -42,13 +16,34 @@ Neigative_One = -1
 PRINTABLE_CHAR = 95
 # Allowable rotation key prefixes
 KEY_PREFIX = "-"
-# Required file extension
-FILE_EXT = ".txt"
-# File processing modes
-READ_MODE = 'r'
-WRITE_MODE = 'w' 
+
+#Import
+import os.path
 
 # Functions ------------------------------------------------------------------
+
+# Generate output file name from input file name, operation requested
+#     and converted rotation key
+# param file_name (str)
+# param operation (str)
+# param roation_key (int) - converted key
+# invoke str.split(), str.replace() and str.join()
+# return output file name (str)
+def make_name(file_name, operation, rotation_key):
+  name_list = []
+  name_list = file_name.split(".")
+  name_list[0] = name_list[0].replace(OPERATIONS['e'][1], "")
+  name_list[0] = name_list[0].replace(OPERATIONS['d'][1], "")
+  name_list[0] += (OPERATIONS[operation][1] + str(rotation_key))
+  return ".".join(name_list)
+
+def makeName(fileName):
+  fileNameList = fileName.split('.')
+  fileNameList[0] += "Output"
+  return '.'.join(fileNameList)
+
+def validate_file_name(name):
+  return os.path.isfile(name) and name.endswith(FILE_EXT)
 
 # Check that requested operation is valid
 # param op_str (str) - operation requested
@@ -95,6 +90,7 @@ def keep_in_bounds(ordinal):
 # param rotation_key (int)
 # invoke keep_in_bounds() 
 # return processed_message (str)
+
 def process_message(message, rotation_key):
   ## temp = []
   temp = ''
@@ -106,28 +102,6 @@ def process_message(message, rotation_key):
     temp +=processed_message
   return temp
 
-# Implementing exception handling
-
-# Checks that file exists and that extension is .txt
-# param name(str)
-# invoke isfile() from module os.path and endswith()
-# return True when valid, False otherwise (bool)
-def validate_file_name(name):
-  return os.path.isfile(name) and name.endswith(FILE_EXT)
-
-# Generates output file name from input file name, operation requested
-# and converted rotation key
-# param file_name (str)
-# param operation (str)
-# param rotation_key (int) - converted key
-# invoke str.split(), str.replace() and str.join()
-# return output file name (str)
-def make_name(file_name, operation, rotation_key):
-  name_list = file_name.split(".")
-  name_list[0] = name_list[0].replace(OPERATIONS['e'][1],"")
-  name_list[0] = name_list[0].replace(OPERATIONS['d'][1],"")
-  name_list[0] += (OPERATIONS[operation][1] + str(rotation_key))
-  return ".".join(name_list)
 
 # Processes list of lines(i.e., messages)from input file list
 # one line at a time
@@ -148,7 +122,7 @@ def process_message_list(new_list,rotation_key):
 # param text_list(list)
 # return None
 def write_to_file(file, text_list):
-  file_write = open('%s%s'%(file,FILE_EXT),WRITE_MODE)
+  file_write = open('%s%s'%(file, FILE_EXT),WRITE_MODE)
   for i in text_list:
     file_write.write(i)
   file_write.close()
@@ -156,45 +130,126 @@ def write_to_file(file, text_list):
 
 # Main -----------------------------------------------------------------------
 
-# Gets plain text or cipher code, operation requested (encrypt or decrypt),
-# and rotation key for Caesar cipher
-# Generates cipher code or plain text
 def main():
-  # Describe program
-  print("This program encrypts or decrypts messages " + \
-        "using a Caesar cipher")
-  # Priming read and repeat
-  filename = input('Input the filename to be processed\n'
-                  '(or press <ENTER> to quit): ')
-  while filename:
-    while not validate_file_name(filename):
-      filename = input('Input the filename to be processed\n'
+  print("This program will read in the contents of a file, " +
+        "then print and write the contents to a new file\n")
+  fileName = input("Input a filename:  ")
+  
+  while fileName:
+
+    while not validate_file_name(fileName):
+      print("Not a valid file name")
+      fileName = input('Input the filename to be processed\n'
                     '(or press <ENTER> to quit): ')
-    file_read = open('%s%s'%(filename,FILE_EXT),READ_MODE)
-    # Get remaining inputs, validate and convert as necessary
-    op_str = input('Do you want to encrypt or decrypt?\n'
-                   '(Enter E for encrypt or D for decrypt): ')
-    while not validate_operation(op_str):
-      print('That operation does not appear to be valid, please try again')
-      op_str = input('Do you want to encrypt or decrypt?\n'
-                     '(Enter E for encrypt or D for decrypt): ')
-    rotation_key_str = input('Enter the rotation key to be used for encryption OR\n'
-                             'the key that was used for encryption: ')
-    while not validate_rotation_key(rotation_key_str):
-      rotation_key_str = input('Enter the rotation key to be used for encryption OR\n'
-                               'the key that was used for encryption: ')
-    new_list = file_read.readline()
+      
+    #########################################
+    #                                       #
+    # PUT YOUR FIRST VALIDATION LOOP HERE,  #
+    # FOLLOWED BY GETTING AND VALIDATING    #
+    # THE REST OF YOUR INPUT, ONE AFTER     #
+    # THE OTHER IN A BLOCK.                 #
+    # ALL OF THE NON-VALIDATION ASSIGNMENT  #
+    # STATEMENTS USED TO GET YOUR INPUTS,   #
+    # AS WELL AS THE HEADER OF YOUR ERROR   #
+    # TRAPS, SHOULD BE AT THE SAME LEVEL    #
+    # OF INDENTATION.                       #
+    # YOU DON'T NEED EXCEPTION-HANDLING     #
+    # HERE, YOUR ORIGINAL CODE WILL BE THE  #
+    # SAME, DON'T CHANGE IT!                #
+    #                                       #
+    #########################################
+
+    ###########################################
+    #                                         #
+    # ONCE YOU GET PAST GETTING THE KEYBOARD  #
+    # INPUTS, START YOUR FILE PROCESSING      #
+    # HERE'S WHERE YOUR EXCEPTION-HANDLING    #
+    # GOES!                                   #
+    #                                         #
+    ###########################################
+
     
-    # Encrypt or decrypt contents of message
-    rotation_key = convert_rotation_key(op_str, rotation_key_str)
-    text_list = process_message_list(new_list,rotation_key)
-    new_name = make_name(filename, operation, rotation_key)
-    ####  Display result      
-    ##  translation = process_message(message,rotation_key)
-    ##  print('The %s message is: %s'%(('encrypted' if op_str.lower()=='e' else 'decrypted'),translation))
-    write_to_file(new_name, text_list)
-  # Continuation read
-  filename = input('Input the filename to be processed\n'
-                    '(or press <ENTER> to quit):  ')
-  file_read.close()
+    try: # outer try for infile open
+      inFileObject = open(fileName, READ_MODE)
+##      print(inFileObject)
+      
+      op_str = input('Do you want to encrypt or decrypt?\n'
+                   '(Enter E for encrypt or D for decrypt): ')
+      while not validate_operation(op_str):
+        print('That operation does not appear to be valid, please try again')
+        op_str = input('Do you want to encrypt or decrypt?\n'
+                     '(Enter E for encrypt or D for decrypt): ')
+        
+      rotation_key_str = input('Enter the rotation key to be used for encryption OR\n'
+                             'the key that was used for encryption: ')
+      
+      while not validate_rotation_key(rotation_key_str):
+        print("Invalid rotation key")
+        rotation_key_str = input('Enter the rotation key to be used for encryption OR\n'
+                               'the key that was used for encryption: ')
+      try: # inner try for processing infile
+        contents = inFileObject.readlines()
+##        print(contents)
+
+        # Encrypt or decrypt contents of message
+        rotation_key = convert_rotation_key(op_str, rotation_key_str)
+
+        print("1111", rotation_key)
+        
+        text_list = process_message_list(contents,rotation_key)
+        print("222222", text_list)
+        
+        #new_name = make_name(fileName, operation, rotation_key)
+        #print("33333333", new_name)
+        
+        ##################################################
+        #                                                #
+        #  THIS IS WHERE YOU WOULD PROCESS THE CONTENTS  #
+        #  OF THE INPUT FILE AND PREPARE YOUR OUTPUT     #
+        #                                                #
+        ##################################################
+       
+
+        try:  # "outer" try for outfile open
+          outFileObject = open(makeName(fileName), WRITE_MODE)
+
+          try: # inner try to outfile processing
+            for line in contents:
+
+              outFileObject.write(line)          
+              print(line)
+
+          except IOError as err: # inner exception handler for outfile processing
+            print("\nProblem writing data: \n" + str(err))
+          except ValueError as err:  # inner exception handler for outfile processing
+            print("\nProblem writing data, wrong format or corrupted?  \n" + str(err) + '\n')
+          except Exception as err: # inner exception handler for outfile processing
+            print("\nData cannot be written to file: \n" + str(err) + '\n')
+          finally:# will close file whether or not exception has been raised
+            outFileObject.close()
+
+        except IOError as err: # "outer" exception handler for outfile open
+          print("\nExecption raised during open of output file, no write performed: \n" + str(err) + '\n')
+        except Exception as err: # outer exception handler for outfile processing
+          print("\nData cannot be read:  \n" + str(err) + '\n')  
+
+      except IOError as err: # inner exception handler for infile processing
+        print("\nProblem reading data: \n" + str(err))
+      except ValueError as err: # inner exception handler for infile processing
+        print("\nProblem processing data, wrong format or corrupted? \n" + str(err) + '\n')
+      except Exception as err: # inner exception handler for infile processing
+        print("\nData cannot be read:  \n" + str(err) + '\n')        
+      finally:# will close file whether or not exception has been raised
+        inFileObject.close()
+        
+    except FileNotFoundError as err:  # outer exception handler for infile open
+      print("\nFile not found:  deleted or in wrong folder?  \n" + str(err) + '\n')
+    except IOError as err: # outer exception handler for infile open
+      print("\nException raised during open of input file, try a different file: \n" + str(err) + '\n')
+    except Exception as err: # outer exception handler for infile open
+      print("\nData cannot be read:  \n" + str(err) + '\n')
+
+      
+    fileName = input("Input a filename:  ")
+
 main()
