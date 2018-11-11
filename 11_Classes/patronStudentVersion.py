@@ -31,46 +31,63 @@ class Patron:
   #                to STATUS[0]
   def __init__(self, name):
     # your code here
-
+    self.__name = name
+    self.__numBooksOut = 0
+    self.__status = STATUS[0]
+    
   # Predicates ---------------------------------------------------------------
 
   # True if less then max books checked out, False otherwise
   def canCheckOutBooks(self):
     # your code here
-
+    return self.__numBooksOut <= 3
+  
   # True if books checked out, False otherwise
   def hasCheckedOutBooks(self):
     # your code here
-
+    return self.__numBooksOut > 0 
 
   # Accessors ----------------------------------------------------------------
 
   # returns: name (str)
   def getName(self):
     # your code here
-    
+    return self.__name
   # returns: status (str)
   def getStatus(self):
     # your code here
-    
+    return self.__status
   # returns: number of books out (int)
   def getNumBooksOut(self):
     # your code here
-
+    return self.__numBooksOut
+  
   # Mutators -----------------------------------------------------------------
 
   # set to STATUS indexed by number of books out
   def __updateStatus(self):
     # your code here
+    if self.__numBooksOut == 0:
+      self.__status = STATUS[0]
+    elif self.__numBooksOut == 1:
+      self.__status == STATUS[1]
+    elif self.__numBooksOut == 2:
+      self.__status == STATUS[2]
+    else:
+      self.__status = STATUS[3]
     
   # invokes: updateStatus()
   def increment(self):
     # your code here
-    
+    self.__numBooksOut += 1
+    return __updateStatus(self)
+  
   # invokes updateStatus()
   def decrement(self):
     # your code here
-
+    self.__numBooksOut -= 1
+    return __updateStatus(self)
+    
   # Comparators --------------------------------------------------------------
 
   # Already written for you:
@@ -102,3 +119,6 @@ class Patron:
 
   def __str__(self):
     # your code here
+    return ('Patron Name is %s. The number of books checkouted: %d.\
+             How many books more: %d' %(self.__name, self.__numBooksOut, \
+                                        self.__status)
