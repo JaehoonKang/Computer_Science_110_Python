@@ -53,57 +53,71 @@ class Book:
   #                 to null/empty values
   def __init__(self, title, author):
     # your code here
-
+    self.__title = title
+    self.__author = author
+    self.__transactionStatus = TRANS_STATUS[0]
+    self.__patron = None
+    self.__waitList = []
+    
   # Predicates ---------------------------------------------------------------
 
   # returns: True when book is already loaned out, False otherwise (bool)
   def isCheckedOut(self):
     # your code here
-    
+    return (self.__patron != None)
+  
   # invokes len()
   # returns: True if Patron(s) are waiting for book, False otherwise (bool)  
   def isReserved(self):
     # your code here
-    
+    return (self.__waitList != [])
+  
   # params: patron - a particular patron (Patron)
   # returns: True when Patron has checked out book, False otherwise (bool)  
   def hasBook(self, patron):
     # your code here
+    return (self.__patron == patron)
     
   # params: patron - a particular patron (Patron)
   # returns: True when given Patron is on waiting list, False otherwise (bool)  
   def isInWaitList(self, patron):
     # your code here
-    
+    return (patron in self.__waitList)
+  
   # Both return and lend
   # returns: True when previous transaction is "returned" and current 
   #            transaction is "lend", False otherwise (bool)  
   def __isTwoPartStatus(self):
     # your code here
+    return ((self.get_transaction_status() == Book.TRANS_STATUS[4]) and (len(set.__waitlist) > 0))
 
   # Accessors ----------------------------------------------------------------
 
   # returns: title of book (str)
   def getTitle(self):
     # your code here    
-
+    return self.__title
+  
   # returns: author of book (str)
   def getAuthor(self):
     # your code here
-    
+    return self.__author
+  
   # returns: Patron who has checked out book (Patron)
   def getPatron(self): 
     # your code here
-    
+    return self.__patron
+  
   # returns: record of latest book transaction (str)
   def getTransactionStatus(self):
     # your code here
-
+    return self.__transactionStatus
+  
   # invokes: str()
   # returns: str representation of waiting list for book (str)
   def getWaitListStr(self):
     # your code here
-    
+    return str(self.__waitList)
     
   # Mutators -----------------------------------------------------------------
 
@@ -113,6 +127,25 @@ class Book:
   # params:  patron - patron trying to borrow book (Patron)
   def borrowMe(self, patron): 
     # your code here
+    if(self.has_book(patron)):
+      self.__set_transaction_status(patron.get_name(), 5)
+    elif(self.is_checked_out()):
+      if(self.is_reserved()):
+        if(self.is_in_waitlist(patron)):
+          self.__set_transaction_status(patron.get_name(), 5)
+        else:
+          self.__put_in_wait_list(patron)
+          self.__set_transaction_status(patron.get_name(), 2)
+      else:
+        self.__put_in_wait_list(patron)
+        self.__set_transaction_status(patron.get_name(), 2)
+    else:
+      if(patron.can_check_out_books()):
+        self.__lend_book(patron)
+        self.__set_transaction_status(patron.get_name(), 1)
+        #self.__patron = patron
+      else:
+        self.__set_transaction_status(patron.get_name(), 3)
     
   # Return book: release current patron, try to lend to waiting patron
   # This method delegates all responsibilities to private methods of class
@@ -121,26 +154,52 @@ class Book:
   #          __setTransactionStatus()
   def returnMe(self): # mutator controller
     # your code here
+    if(self.is_checked_out()):
+      if(not self.is_reserved()):
+        self.__set_transaction_status(self.__patron.get_name(), 4)
+        self.__reset_patron()
+        #self.__patron = None
+      else:
+        self.__set_transaction_status(self.__patron.get_name(), 4)
+        self.__reset_patron()
+        if(self.__waitlist[0].can_check_out_books()):
+          self.__set_transaction_status(self.__waitlist[0].get_name(), 1)
+          self.__lend_to_next_patron()
+        else:
+          self.__set_transaction_status(self.__waitlist[0].get_name, 3)
     
   # invokes: increment() (Patron class)
   # params: patron - Patron borrowing book (Patron)
   def __lendBook(self, patron): 
     # your code here
+    patron.increment()
+    self.__patron = patron
     
   # invokes: decrement() (Patron class)
   def __resetPatron(self):
     # your code here
+    self.__patron.decrement()
+    self.__patron = None
     
   # Lend book to waiting patron if eligible; if not, remove from wait List
   # invokes: isCheckedOut(), isReserved(),
   #          pop() (from list), borrowMe()
   def __lendToNextPatron(self): # waitList mutator
     # your code here
+    if self.is_checked_out():
+      if self.is_reserved():
+        if self.__waitlist[0].can_check_out_books():
+          self.__patron = ""
+          self.borrow_me(self.__waitlist[0])
+          self.__waitlist.pop(0)
+        else:
+          self.__waitlist.pop(0)
     
   # params:  patron - Patron to put in waiting list (Patron)
   # invokes: append() (to list)
   def __putInWaitList(self, patron): # waitList mutator
     # your code here
+    self.__waitlist.append(patron)
     
   # Creates string describing latest transaction
   # Combines name of patron participation in transaction with
@@ -150,6 +209,11 @@ class Book:
   # invokes: __isTwoPartStatus()
   def __setTransactionStatus(self, name, index):# transStatus mutator
     # your code here
+    if(self.__needs_two_part_status()):
+      self.__transaction_status = name + Book.TRANS_STATUS[4] + self.__title \
+      + '\n' + self.__waitlist[0].get_name() + Book.TRANS_STATUS[1] + self.__title
+    else:
+      self.__transaction_status = name + Book.TRANS_STATUS[index] + self.__title
     
   # Comparators --------------------------------------------------------------
 
@@ -184,3 +248,6 @@ class Book:
   # returns:  str representation of Book object (str)
   def __str__(self):
     # your code here
+    return 'Title: %s, Author: %s, Transaction Status: %s, Patron: %s, \
+     Wait list: %s' %(self.__title, self.__author, self.__transaction_status, \
+      self.__patron, self.__waitlist)
